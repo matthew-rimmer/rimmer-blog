@@ -1,0 +1,29 @@
+{
+  "name": "rimmer-blog",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@ant-design/icons": "^4.7.0",
+    "@supabase/supabase-js": "^1.30.4",
+    "antd": "^4.18.7",
+    "less": "^4.1.2",
+    "less-loader": "^10.2.0",
+    "next": "12.1.0",
+    "next-with-less": "^2.0.5",
+    "react": "17.0.2",
+    "react-dom": "17.0.2"
+  },
+  "devDependencies": {
+    "@types/node": "17.0.18",
+    "@types/react": "17.0.39",
+    "eslint": "8.9.0",
+    "eslint-config-next": "12.1.0",
+    "typescript": "4.5.5"
+  }
+}

@@ -22,16 +22,21 @@ import {
   VideoCameraOutlined,
   HomeOutlined,
   BookOutlined,
+  LoadingOutlined,
 } from "@ant-design/icons";
 import SubMenu from "antd/lib/menu/SubMenu";
 import { useEffect, useState } from "react";
 import { Content, Footer, Header } from "antd/lib/layout/layout";
 import React from "react";
 import { getPosts } from "../utils/supabaseClient";
+import { Typography } from "antd";
+import { animated, useSpring } from "@react-spring/web";
+
+const { Title } = Typography;
 
 export default function Home() {
   const [posts, setPosts] = useState([]);
-  const [collapsed, setCollapsed] = useState(false);
+  const [collapsed, setCollapsed] = useState(true);
 
   useEffect(() => {
     fetchPosts();
@@ -39,7 +44,9 @@ export default function Home() {
 
   const fetchPosts = async () => {
     const data = (await getPosts()).data;
-    setPosts(data);
+    if (data) {
+      setPosts(data);
+    }
   };
 
   useEffect(() => {
@@ -50,9 +57,47 @@ export default function Home() {
     setCollapsed(!collapsed);
   };
 
+  const [greetingStatus, setGreeting] = React.useState(false);
+  const contentProps = useSpring({
+    opacity: greetingStatus ? 1 : 0,
+    transform: greetingStatus
+      ? "translate3d(0px,0,0)"
+      : "translate3d( 500px,0,0)",
+  });
+
+  const [postsStatus, setPostsLoaded] = React.useState(false);
+  const loadedProps = useSpring({
+    opacity: postsStatus ? 1 : 0,
+    transform: postsStatus
+      ? "translate3d(0px,0,0)"
+      : "translate3d( 500px,0,0)",
+    width: "50%",
+  });
+
+  useEffect(() => setGreeting(true), []);
+
+  useEffect(() => {
+    if (posts.length > 0) {
+      setPostsLoaded(true);
+    }
+  }, [posts]);
+
   return (
     <Layout hasSider style={{ minHeight: "100vh" }}>
-      <Sider collapsible collapsed={collapsed} onCollapse={onCollapse}>
+      <Sider
+        collapsible
+        collapsed={collapsed}
+        onCollapse={onCollapse}
+        style={{
+          overflow: "auto",
+          height: "100vh",
+          position: "fixed",
+          left: 0,
+          top: 0,
+          bottom: 0,
+          zIndex: 1,
+        }}
+      >
         <div className="logo" />
         <Menu theme="dark" defaultSelectedKeys={["1"]} mode="inline">
           <Menu.Item key="1" icon={<HomeOutlined />}>
@@ -67,30 +112,28 @@ export default function Home() {
         </Menu>
       </Sider>
       <Layout className="site-layout">
-        <Content style={{ margin: "0 16px" }}>
-          <Spin spinning={posts.length === 0}>
-            {posts.length > 0 && (
-              <List
-                itemLayout="horizontal"
-                dataSource={posts}
-                renderItem={(item: any) => (
-                  <List.Item>
-                    <List.Item.Meta
-                      avatar={
-                        <Avatar src="https://joeschmoe.io/api/v1/random" />
-                      }
-                      title={<a href="https://ant.design">{item.title}</a>}
-                      description={item.content}
-                    />
-                  </List.Item>
-                )}
-              />
-            )}
-          </Spin>
-        </Content>
-        <Footer style={{ textAlign: "center" }}>
-          Ant Design ©2018 Created by Ant UED
-        </Footer>
+        <animated.div style={contentProps}>
+          <Content>
+            <Title style={{ padding: "2% 0 2% 0" }}>Blog</Title>
+            {postsStatus ? 
+              (<animated.div style={loadedProps}>
+                
+                <List
+                  itemLayout="horizontal"
+                  dataSource={posts}
+                  renderItem={(item: any) => (
+                    <List.Item>
+                      <List.Item.Meta
+                        title={<a href="https://ant.design">{item.title}</a>}
+                        description={item.content}
+                      />
+                    </List.Item>
+                  )}
+                />
+              </animated.div>)
+              : <Spin/> }
+          </Content>
+        </animated.div>
       </Layout>
     </Layout>
   );

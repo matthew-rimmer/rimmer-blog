@@ -15,8 +15,19 @@
   display: none;
 }
 
-.ant-layout-sider-collapsed
-  .ant-menu-item
-  > .ant-menu-title-content {
+.ant-layout-sider-collapsed .ant-menu-item > .ant-menu-title-content {
   display: none;
+}
+
+.ant-layout-content {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  flex-direction: column;
+}
+
+.ant-list {
+  width: 100%;
 }

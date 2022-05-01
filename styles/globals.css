@@ -11,23 +11,24 @@
   background: #141414;
 }
 
-.ant-layout-sider-collapsed .nav-text {
-  display: none;
-}
-
-.ant-layout-sider-collapsed .ant-menu-item > .ant-menu-title-content {
-  display: none;
-}
-
 .ant-layout-content {
   width: 100%;
+  padding: 5% 20% 0 20%;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-content: flex-start;
+  align-items: left;
   margin: 0;
   flex-direction: column;
 }
 
 .ant-list {
+  width: 100%;
+}
+
+h1.ant-typography {
+  padding: 2% 0 2% 0;
+}
+
+img {
   width: 100%;
 }

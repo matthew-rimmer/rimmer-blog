@@ -9,6 +9,13 @@ import Link from "next/link";
 import { SlideInLoading } from "../common/components/slideInLoading";
 import { format } from "date-fns";
 import { getDisplayDate } from "../common/utils/helpers";
+import { marked } from "marked";
+import DOMPurify from "dompurify";
+import parse, { attributesToProps } from "html-react-parser";
+import { Element } from "domhandler/lib/node";
+import ReactMarkdown from "react-markdown";
+import { Remark, useRemark } from "react-remark";
+import { PostPreview } from "../common/components/postPreview";
 
 const { Title } = Typography;
 
@@ -47,16 +54,26 @@ export default function Home() {
           itemLayout="horizontal"
           dataSource={posts}
           renderItem={(item: Post) => (
-            <List.Item>
+            <List.Item
+              style={{ flexDirection: "column", alignItems: "baseline" }}
+            >
               <List.Item.Meta
+                style={{ width: "100%" }}
                 title={
                   <>
-                    <Link href={`/post/${item.web_title}`}><a style={{fontWeight: "bold"}}>{item.title}</a></Link>
-                    {getDisplayDate(item.created_at)}
+                    <Link href={`/post/${item.web_title}`}>
+                      <a style={{ fontSize: "2rem" }}>{item.title}</a>
+                    </Link>
                   </>
                 }
-                description={item.content}
+                description={getDisplayDate(item.created_at)}
               />
+              <PostPreview content={item.content} />
+              <Link href={`/post/${item.web_title}`}>
+                <a style={{ textDecoration: "underline", paddingTop: "1rem" }}>
+                  Read more
+                </a>
+              </Link>
             </List.Item>
           )}
         />

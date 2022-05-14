@@ -11,6 +11,10 @@ import { Content } from "antd/lib/layout/layout";
 import { SlideInLoading } from "../../../common/components/slideInLoading";
 import { Typography } from "antd";
 import { getDisplayDate } from "../../../common/utils/helpers";
+import { marked } from "marked";
+import parse from "html-react-parser";
+import DOMPurify from "dompurify";
+import ReactMarkdown from "react-markdown";
 
 const { Title } = Typography;
 
@@ -18,7 +22,6 @@ const PostPage = () => {
   const router = useRouter();
   const { web_title } = router.query;
   const [post, setPost] = useState<Post>();
-  const [content, setContent] = useState<Array<PostContent>>();
   const [loaded, setLoaded] = useState(false);
 
   const fetchPost = async () => {
@@ -27,12 +30,6 @@ const PostPage = () => {
     if (data) {
       console.log("Data ", data);
       setPost(data[0]);
-      const content = (await getPostContent(data[0].id))
-        .data as Array<PostContent>;
-      if (content) {
-        console.log(content);
-        setContent(content.sort());
-      }
       setLoaded(true);
     }
   };
@@ -53,20 +50,7 @@ const PostPage = () => {
         {post && getDisplayDate(post.created_at)}
       </Title>
       <SlideInLoading loaded={loaded} style={{ width: "100%" }}>
-        {content &&
-          content.map((element) => {
-            switch (element.type) {
-              case "image":
-                return <img src={element.content}></img>;
-                break;
-              case "text":
-                return <p>{element.content}</p>;
-                break;
-
-              default:
-                break;
-            }
-          })}
+        {post?.content && <ReactMarkdown children={post.content} />}
       </SlideInLoading>
     </Content>
   );

@@ -35,7 +35,7 @@ export const PageWrapper = (props: pageWrapperProps) => {
             key="/"
             icon={<MessageOutlined />}
           >
-            Home
+            Blog
           </Menu.Item>
           <Menu.Item
             onClick={() => router.push("/portfolio")}

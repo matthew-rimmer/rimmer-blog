@@ -50,7 +50,7 @@ const PostPage = () => {
         {post && getDisplayDate(post.created_at)}
       </Title>
       <SlideInLoading loaded={loaded} style={{ width: "100%" }}>
-        {post?.content && <ReactMarkdown children={post.content} />}
+        {post?.content && <ReactMarkdown>{post.content}</ReactMarkdown>}
       </SlideInLoading>
     </Content>
   );

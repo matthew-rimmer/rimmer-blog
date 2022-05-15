@@ -24,17 +24,16 @@ const PostPage = () => {
   const [post, setPost] = useState<Post>();
   const [loaded, setLoaded] = useState(false);
 
-  const fetchPost = async () => {
-    console.log("Query: ", web_title);
-    const data = (await getPostByWebTitle(web_title)).data;
-    if (data) {
-      console.log("Data ", data);
-      setPost(data[0]);
-      setLoaded(true);
-    }
-  };
-
   useEffect(() => {
+    const fetchPost = async () => {
+      console.log("Query: ", web_title);
+      const data = (await getPostByWebTitle(web_title)).data;
+      if (data) {
+        console.log("Data ", data);
+        setPost(data[0]);
+        setLoaded(true);
+      }
+    };
     if (web_title) {
       fetchPost();
     }

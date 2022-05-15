@@ -20,7 +20,7 @@ export const PageWrapper = (props: pageWrapperProps) => {
 
   return (
     <Layout hasSider style={{ height: "100vh" }}>
-      <Sider width={"10%"}>
+      <Sider breakpoint="md" collapsedWidth="0">
         <Title level={3} style={{ padding: "1rem 2% 2% 1rem", color: "white" }}>
           Rimmer
         </Title>

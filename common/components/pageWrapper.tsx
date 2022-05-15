@@ -38,6 +38,7 @@ export const PageWrapper = (props: pageWrapperProps) => {
             Blog
           </Menu.Item>
           <Menu.Item
+            style={{ display: "none" }}
             onClick={() => router.push("/portfolio")}
             key="/portfolio"
             icon={<BookOutlined />}
@@ -45,6 +46,7 @@ export const PageWrapper = (props: pageWrapperProps) => {
             Portfolio
           </Menu.Item>
           <Menu.Item
+            style={{ display: "none" }}
             onClick={() => router.push("/contact")}
             key="/contact"
             icon={<PhoneOutlined />}

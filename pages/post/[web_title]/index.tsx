@@ -9,12 +9,14 @@ import {
 import { useEffect, useState } from "react";
 import { Content } from "antd/lib/layout/layout";
 import { SlideInLoading } from "../../../common/components/slideInLoading";
-import { Typography } from "antd";
+import { Button, Typography } from "antd";
 import { getDisplayDate } from "../../../common/utils/helpers";
 import { marked } from "marked";
 import parse from "html-react-parser";
 import DOMPurify from "dompurify";
 import ReactMarkdown from "react-markdown";
+import { LeftOutlined } from "@ant-design/icons";
+import Head from "next/head";
 
 const { Title } = Typography;
 
@@ -41,6 +43,10 @@ const PostPage = () => {
 
   return (
     <Content style={{ overflow: "scroll", overflowX: "hidden" }}>
+      <Head>
+        <title>{post?.title ? post?.title : "Loading..."}</title>
+        <meta property="og:title" content={post?.title} key="title" />
+      </Head>
       <Title style={{ marginBottom: 0, paddingBottom: 0 }}>{post?.title}</Title>
       <Title
         style={{ marginTop: "10px", paddingTop: 0, paddingBottom: "2  0px" }}

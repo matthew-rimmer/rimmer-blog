@@ -16,6 +16,7 @@ import { Element } from "domhandler/lib/node";
 import ReactMarkdown from "react-markdown";
 import { Remark, useRemark } from "react-remark";
 import { PostPreview } from "../common/components/postPreview";
+import Head from "next/head";
 
 const { Title } = Typography;
 
@@ -48,6 +49,10 @@ export default function Home() {
 
   return (
     <Content style={{ overflow: "scroll", overflowX: "hidden" }}>
+      <Head>
+        <title>Blog</title>
+        <meta property="og:title" content="Blog" key="title" />
+      </Head>
       <Title>Blog</Title>
       <SlideInLoading loaded={postsStatus} style={{ width: "100%" }}>
         <List

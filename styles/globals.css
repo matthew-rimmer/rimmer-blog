@@ -14,6 +14,7 @@
 .ant-layout-content {
   width: 100%;
   padding: 5% 20% 0 20%;
+
   display: flex;
   justify-content: flex-start;
   align-items: left;
@@ -31,4 +32,10 @@ h1.ant-typography {
 
 img {
   width: 100%;
+}
+
+@media (max-width: 768px) {
+  .ant-layout-content {
+    padding: 5% 10% 0 10%;
+  }
 }

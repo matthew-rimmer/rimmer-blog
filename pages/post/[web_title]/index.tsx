@@ -28,10 +28,8 @@ const PostPage = () => {
 
   useEffect(() => {
     const fetchPost = async () => {
-      console.log("Query: ", web_title);
       const data = (await getPostByWebTitle(web_title)).data;
       if (data) {
-        console.log("Data ", data);
         setPost(data[0]);
         setLoaded(true);
       }

@@ -11,7 +11,6 @@ export const PostPreview = (props: PostPreviewProps) => {
   useEffect(() => {
     {
       const splitString = props.content.split("\n");
-      console.log(splitString);
       const parsedString: String[] = [];
       for (let index = 0; index < splitString.length; index++) {
         if (
@@ -20,11 +19,9 @@ export const PostPreview = (props: PostPreviewProps) => {
         ) {
           break;
         } else {
-          console.log(splitString[index]);
           parsedString.push(splitString[index]);
         }
       }
-      console.log(parsedString.join("\n"));
       setParsedContent(parsedString.join("\n"));
     }
   }, []);

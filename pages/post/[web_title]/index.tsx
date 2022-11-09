@@ -10,7 +10,10 @@ import { useEffect, useState } from "react";
 import { Content } from "antd/lib/layout/layout";
 import { SlideInLoading } from "../../../common/components/slideInLoading";
 import { Button, Typography } from "antd";
-import { getDisplayDate } from "../../../common/utils/helpers";
+import {
+  getDisplayDate,
+  markupToPlainText,
+} from "../../../common/utils/helpers";
 import { marked } from "marked";
 import parse from "html-react-parser";
 import DOMPurify from "dompurify";
@@ -28,10 +31,8 @@ const PostPage = () => {
 
   useEffect(() => {
     const fetchPost = async () => {
-      console.log("Query: ", web_title);
       const data = (await getPostByWebTitle(web_title)).data;
       if (data) {
-        console.log("Data ", data);
         setPost(data[0]);
         setLoaded(true);
       }
@@ -46,6 +47,7 @@ const PostPage = () => {
       <Head>
         <title>{post?.title ? post?.title : "Loading..."}</title>
         <meta property="og:title" content={post?.title} key="title" />
+        <meta name="description" content={markupToPlainText(post?.content || "")} />
       </Head>
       <Title style={{ marginBottom: 0, paddingBottom: 0 }}>{post?.title}</Title>
       <Title

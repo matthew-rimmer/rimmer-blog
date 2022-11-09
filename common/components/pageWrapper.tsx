@@ -38,7 +38,6 @@ export const PageWrapper = (props: pageWrapperProps) => {
             Blog
           </Menu.Item>
           <Menu.Item
-            style={{ display: "none" }}
             onClick={() => router.push("/portfolio")}
             key="/portfolio"
             icon={<BookOutlined />}

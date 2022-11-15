@@ -4,38 +4,15 @@
   background: rgba(255, 255, 255, 0.3);
 }
 
-.site-layout .site-layout-background {
-  background: #fff;
-}
-[data-theme="dark"] .site-layout .site-layout-background {
-  background: #141414;
-}
-
-.ant-layout-content {
+.site-layout {
   width: 100%;
-  padding: 5% 20% 0 20%;
-
-  display: flex;
-  justify-content: flex-start;
-  align-items: left;
-  margin: 0;
-  flex-direction: column;
-}
-
-.ant-list {
-  width: 100%;
-}
-
-h1.ant-typography {
-  padding: 2% 0 2% 0;
+  height: 100%;
 }
 
 img {
   width: 100%;
 }
 
-@media (max-width: 768px) {
-  .ant-layout-content {
-    padding: 5% 10% 0 10%;
-  }
+ul {
+  margin-left: 1rem;
 }

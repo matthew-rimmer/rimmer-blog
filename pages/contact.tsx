@@ -1,17 +1,14 @@
-import { Typography } from "antd";
-import { Content } from "antd/lib/layout/layout";
 import Head from "next/head";
-
-const { Title } = Typography;
+import { Heading } from "@chakra-ui/react";
 
 export default function Contact() {
   return (
-    <Content>
+    <div>
       <Head>
         <title>Contact</title>
         <meta property="og:title" content="Contact" key="title" />
       </Head>
-      <Title>Contact</Title>
-    </Content>
+      <Heading>Contact</Heading>
+    </div>
   );
 }

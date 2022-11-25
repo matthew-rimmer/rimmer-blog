@@ -45,7 +45,7 @@ export default function Home() {
         <Heading>Blog</Heading>
         <VStack paddingTop={"2rem"} align={"center"} width={"80%"}>
           {posts.map((item: Post) => (
-            <Flex gap={"10px"} flexDirection="column" alignItems="baseline">
+            <Flex key={item.id} gap={"10px"} flexDirection="column" alignItems="baseline">
               <Heading>{item.title}</Heading>
               <PostPreview content={item.content} />
               <Link href={`/post/${item.web_title}`}>Read more</Link>

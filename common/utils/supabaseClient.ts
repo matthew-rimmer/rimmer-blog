@@ -24,7 +24,7 @@ export type PostContent = {
 
 
 export const getPosts: any = async () => {
-  const value = await supabase.from<Post>("posts").select("*");
+  const value = await supabase.from("posts").select("*");
   return value;
 };
 

@@ -13,7 +13,7 @@ export const PageWrapper = (props: pageWrapperProps) => {
   const router = useRouter();
 
   return (
-    <div>
+    <div style={{ width: "100vw", overflowX: "hidden" }}>
       <NavBar>
         <Button
           onClick={() => router.push("/")}

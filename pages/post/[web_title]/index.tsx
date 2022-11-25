@@ -17,6 +17,8 @@ import {
   UnorderedList,
 } from "@chakra-ui/react";
 import { Link } from "@chakra-ui/react";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 
 const PostPage = () => {
   const router = useRouter();
@@ -53,23 +55,33 @@ const PostPage = () => {
           size="2xl"
           style={{ marginBottom: 0, paddingBottom: 0 }}
         >
-          {post?.title}
+          {post?.title || <Skeleton width={"100px"} />}
         </Heading>
         <Heading
           as="h3"
           size="md"
           style={{ marginTop: "10px", paddingTop: 0, paddingBottom: "2  0px" }}
         >
-          {post && getDisplayDate(post.created_at)}
+          {post ? (
+            getDisplayDate(post.created_at)
+          ) : (
+            <Skeleton width={"100px"} />
+          )}
         </Heading>
       </VStack>
       <Flex flexDirection={"column"} gap={"10px"} width={"80%"}>
-        {post?.content && (
+        {post?.content ? (
           <ReactMarkdown
             components={{
-              h1: ({ node, ...props }) => <Heading size={"lg"} as="h4" {...props} />,
-              h2: ({ node, ...props }) => <Heading size={"md"} as="h5" {...props} />,
-              h3: ({ node, ...props }) => <Heading size={"sm"} as="h6" {...props} />,
+              h1: ({ node, ...props }) => (
+                <Heading size={"lg"} as="h4" {...props} />
+              ),
+              h2: ({ node, ...props }) => (
+                <Heading size={"md"} as="h5" {...props} />
+              ),
+              h3: ({ node, ...props }) => (
+                <Heading size={"sm"} as="h6" {...props} />
+              ),
               p: Text,
               ul: UnorderedList,
               ol: OrderedList,
@@ -79,6 +91,15 @@ const PostPage = () => {
           >
             {post.content}
           </ReactMarkdown>
+        ) : (
+          <>
+            <Skeleton count={5.5} />
+            <Skeleton count={2.5} />
+            <Skeleton count={6.5} />
+            <Skeleton count={5.5} />
+            <Skeleton count={2.5} />
+            <Skeleton count={6.5} />
+          </>
         )}
       </Flex>
     </VStack>

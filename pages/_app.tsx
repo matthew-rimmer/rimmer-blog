@@ -5,6 +5,7 @@ import React from "react";
 import { Helmet } from "react-helmet";
 import { ChakraProvider } from "@chakra-ui/react";
 import theme from "../common/components/theme";
+import NextNProgress from "nextjs-progressbar";
 
 function MyApp({ Component, pageProps }: AppProps) {
   if (typeof window !== "undefined" && process.env.NODE_ENV !== "production") {
@@ -19,6 +20,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         <html lang="en" />
       </Helmet>
       <ChakraProvider theme={theme}>
+        <NextNProgress />
         <PageWrapper>
           <Component {...pageProps} />
         </PageWrapper>

@@ -65,11 +65,11 @@ const PostPage = () => {
           {post ? (
             getDisplayDate(post.created_at)
           ) : (
-            <Skeleton width={"100px"} />
+            <Skeleton width={"150px"} />
           )}
         </Heading>
       </VStack>
-      <Flex flexDirection={"column"} gap={"10px"} width={"80%"}>
+      <Flex flexDirection={"column"} gap={"10px"} width={"100%"}>
         {post?.content ? (
           <ReactMarkdown
             components={{

@@ -45,7 +45,7 @@ export default function Home() {
       </Head>
       <VStack paddingTop={"2rem"} align={"center"}>
         <Heading>Blog</Heading>
-        <VStack paddingTop={"2rem"} align={"center"} width={"80%"}>
+        <VStack paddingTop={"2rem"} align={"center"} width={"100%"}>
           {posts.length > 0 
             ? posts.map((item: Post) => (
                 <Flex

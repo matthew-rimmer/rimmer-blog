@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import { Heading } from "@chakra-ui/react";
 import { Button, IconButton } from "@chakra-ui/react";
 import { NavBar } from "./navbar";
+import { Phi } from "../constants";
 
 interface pageWrapperProps {
   children: any;
@@ -20,7 +21,7 @@ export const PageWrapper = (props: pageWrapperProps) => {
           key="/"
           aria-label={""}
           bg={"transparent"}
-          fontSize={"lg"}
+          fontSize={"md"}
           fontWeight={"light"}
         >
           Blog
@@ -30,7 +31,7 @@ export const PageWrapper = (props: pageWrapperProps) => {
           key="/portfolio"
           aria-label={""}
           bg={"transparent"}
-          fontSize={"lg"}
+          fontSize={"md"}
           fontWeight={"light"}
         >
           Portfolio
@@ -40,14 +41,16 @@ export const PageWrapper = (props: pageWrapperProps) => {
           onClick={() => router.push("/contact")}
           key="/contact"
           aria-label={""}
-          fontSize={"lg"}
+          fontSize={"md"}
           fontWeight={"light"}
         >
           Contact
         </Button>
       </NavBar>
       <div className="site-layout">
-        <div style={{ width: "80%", margin: "auto" }}>{props.children}</div>
+        <div style={{ width: `calc(100% / ${Phi})`, margin: "auto" }}>
+          {props.children}
+        </div>
       </div>
     </div>
   );

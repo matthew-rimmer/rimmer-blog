@@ -1,19 +1,34 @@
-import { Box, Stack, HStack, Heading, Button, Center } from "@chakra-ui/react";
+import {
+  Box,
+  Stack,
+  HStack,
+  Heading,
+  Button,
+  Center,
+  useMediaQuery,
+  IconButton,
+} from "@chakra-ui/react";
 import { useState } from "react";
+import { Phi } from "../constants";
+import { HamburgerIcon } from "@chakra-ui/icons";
 
 export const NavBar = (props: any) => {
   const [isOpen, setIsOpen] = useState<Boolean>(false);
 
+  const [isLargerThan800] = useMediaQuery("(min-width: 800px)");
+
   return (
     <Box
-      height={"100%"}
+      height={`calc(100vh / ${Phi}/8)`}
       bg={"#3d658d"}
       fontWeight={"light"}
       textColor={"#f6f7f5"}
     >
       <div
         style={{
-          padding: "1% 18% 1% 18%",
+          alignItems: "center",
+          height: "100%",
+          padding: `0 calc((100% - (100% / ${Phi}))/2)`,
           display: "flex",
           justifyContent: "space-between",
         }}
@@ -23,14 +38,12 @@ export const NavBar = (props: any) => {
             Rimmer
           </Heading>
         </Center>
-        <HStack spacing={"8"}>{props.children}</HStack>
+        {isLargerThan800 ? (
+          <HStack spacing={"8"}>{props.children}</HStack>
+        ) : (
+          <IconButton background ={"none"} icon={<HamburgerIcon />} aria-label={""} />
+        )}
       </div>
     </Box>
   );
 };
-
-/*<div style={{}}>
-
-        </div>
-
-        */

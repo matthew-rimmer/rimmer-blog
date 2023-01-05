@@ -20,25 +20,11 @@ import { Link } from "@chakra-ui/react";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 
-const PostPage = () => {
-  const router = useRouter();
-  const { web_title } = router.query;
-  const [post, setPost] = useState<Post>();
-  const [loaded, setLoaded] = useState(false);
-
-  useEffect(() => {
-    const fetchPost = async () => {
-      const data = (await getPostByWebTitle(web_title)).data;
-      if (data) {
-        setPost(data[0]);
-        setLoaded(true);
-      }
-    };
-    if (web_title) {
-      fetchPost();
-    }
-  }, [web_title]);
-
+const PostPage = ({ postData }: { postData: Post[] }) => {
+  if (!postData) {
+    return <p>No post :c</p>;
+  }
+  const post = postData[0];
   return (
     <VStack>
       <Head>
@@ -70,40 +56,41 @@ const PostPage = () => {
         </Heading>
       </VStack>
       <Flex flexDirection={"column"} gap={"10px"} width={"100%"}>
-        {post?.content ? (
-          <ReactMarkdown
-            components={{
-              h1: ({ node, ...props }) => (
-                <Heading size={"lg"} as="h4" {...props} />
-              ),
-              h2: ({ node, ...props }) => (
-                <Heading size={"md"} as="h5" {...props} />
-              ),
-              h3: ({ node, ...props }) => (
-                <Heading size={"sm"} as="h6" {...props} />
-              ),
-              p: Text,
-              ul: UnorderedList,
-              ol: OrderedList,
-              li: ListItem,
-              a: Link,
-            }}
-          >
-            {post.content}
-          </ReactMarkdown>
-        ) : (
-          <>
-            <Skeleton count={5.5} />
-            <Skeleton count={2.5} />
-            <Skeleton count={6.5} />
-            <Skeleton count={5.5} />
-            <Skeleton count={2.5} />
-            <Skeleton count={6.5} />
-          </>
-        )}
+        <ReactMarkdown
+          components={{
+            h1: ({ node, ...props }) => (
+              <Heading size={"lg"} as="h4" {...props} />
+            ),
+            h2: ({ node, ...props }) => (
+              <Heading size={"md"} as="h5" {...props} />
+            ),
+            h3: ({ node, ...props }) => (
+              <Heading size={"sm"} as="h6" {...props} />
+            ),
+            p: Text,
+            ul: UnorderedList,
+            ol: OrderedList,
+            li: ListItem,
+            a: Link,
+          }}
+        >
+          {post.content}
+        </ReactMarkdown>
       </Flex>
     </VStack>
   );
 };
 
 export default PostPage;
+
+// This gets called on every request
+export async function getServerSideProps(context: any) {
+  const { web_title } = context.query;
+  // Fetch data from external API
+  const dataObject = await getPostByWebTitle(web_title);
+
+  const postData = dataObject.data;
+
+  // Pass data to the page via props
+  return { props: { postData } };
+}

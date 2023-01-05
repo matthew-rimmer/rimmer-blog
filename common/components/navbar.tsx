@@ -15,7 +15,7 @@ import { HamburgerIcon } from "@chakra-ui/icons";
 export const NavBar = (props: any) => {
   const [isOpen, setIsOpen] = useState<Boolean>(false);
 
-  const [isLargerThan800] = useMediaQuery("(min-width: 800px)");
+  const [isLargerThan800] = useMediaQuery("(min-width: 768px)");
 
   return (
     <Box

@@ -5,6 +5,7 @@ import { Heading } from "@chakra-ui/react";
 import { Button, IconButton } from "@chakra-ui/react";
 import { NavBar } from "./navbar";
 import { Phi } from "../constants";
+import styled from "styled-components";
 
 interface pageWrapperProps {
   children: any;
@@ -48,10 +49,19 @@ export const PageWrapper = (props: pageWrapperProps) => {
         </Button>
       </NavBar>
       <div className="site-layout">
-        <div style={{ width: `calc(100% / ${Phi})`, margin: "auto" }}>
+        <SiteLayout>
           {props.children}
-        </div>
+        </SiteLayout>
       </div>
     </div>
   );
 };
+
+const SiteLayout = styled.div`
+  width: calc(100% / ${Phi});
+  margin: auto;
+
+  @media (max-width: 768px) {
+    width: calc(100% / ${Phi/1.5});
+  }
+`;

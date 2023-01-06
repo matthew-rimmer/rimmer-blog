@@ -72,7 +72,10 @@ export const NavBar = ({ routes }: { routes: any[] }) => {
             />
             <MenuList>
               {routes.map((route) => (
-                <MenuItem onClick={() => router.push(route.path)}>
+                <MenuItem
+                  key={route.title}
+                  onClick={() => router.push(route.path)}
+                >
                   {route.title}
                 </MenuItem>
               ))}

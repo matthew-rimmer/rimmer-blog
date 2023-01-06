@@ -22,7 +22,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         <html lang="en" />
       </Helmet>
       <ChakraProvider theme={theme}>
-        <NextNProgress />
+        <NextNProgress options={{ showSpinner: false }} />
         <PageWrapper>
           <Component {...pageProps} />
         </PageWrapper>

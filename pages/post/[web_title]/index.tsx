@@ -73,7 +73,7 @@ const PostPage = ({ postData }: { postData: Post[] }) => {
             li: ListItem,
             a: Link,
             code: ({ node, ...props }) => (
-              <Code width={"100%"} overflowX={"scroll"} {...props} />
+              <Code width={"100%"} overflowX={"auto"} {...props} />
             ),
           }}
         >

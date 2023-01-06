@@ -7,15 +7,22 @@ import {
   Center,
   useMediaQuery,
   IconButton,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList,
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { Phi } from "../constants";
 import { HamburgerIcon } from "@chakra-ui/icons";
+import { useRouter } from "next/router";
 
-export const NavBar = (props: any) => {
+export const NavBar = ({ routes }: { routes: any[] }) => {
   const [isOpen, setIsOpen] = useState<Boolean>(false);
 
-  const [isLargerThan800] = useMediaQuery("(min-width: 768px)");
+  const [desktopView] = useMediaQuery("(min-width: 768px)");
+
+  const router = useRouter();
 
   return (
     <Box
@@ -28,7 +35,9 @@ export const NavBar = (props: any) => {
         style={{
           alignItems: "center",
           height: "100%",
-          padding: `0 calc((100% - (100% / ${Phi}))/2)`,
+          padding: desktopView
+            ? `0 calc((100% - (100% / ${Phi}))/2)`
+            : `0 calc((100% - (100% / ${Phi / 1.5}))/2)`,
           display: "flex",
           justifyContent: "space-between",
         }}
@@ -38,10 +47,37 @@ export const NavBar = (props: any) => {
             Rimmer
           </Heading>
         </Center>
-        {isLargerThan800 ? (
-          <HStack spacing={"8"}>{props.children}</HStack>
+        {desktopView ? (
+          <HStack spacing={"8"}>
+            {routes.map((route) => (
+              <Button
+                bg={"transparent"}
+                onClick={() => router.push(route.path)}
+                key={route.path}
+                aria-label={""}
+                fontSize={"md"}
+                fontWeight={"light"}
+              >
+                {route.title}
+              </Button>
+            ))}
+          </HStack>
         ) : (
-          <IconButton background ={"none"} icon={<HamburgerIcon />} aria-label={""} />
+          <Menu>
+            <MenuButton
+              as={IconButton}
+              background={"none"}
+              icon={<HamburgerIcon boxSize={6} />}
+              aria-label={""}
+            />
+            <MenuList>
+              {routes.map((route) => (
+                <MenuItem onClick={() => router.push(route.path)}>
+                  {route.title}
+                </MenuItem>
+              ))}
+            </MenuList>
+          </Menu>
         )}
       </div>
     </Box>

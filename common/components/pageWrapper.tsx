@@ -12,46 +12,27 @@ interface pageWrapperProps {
 }
 
 export const PageWrapper = (props: pageWrapperProps) => {
-  const router = useRouter();
 
   return (
     <div style={{ width: "100vw", overflowX: "hidden" }}>
-      <NavBar>
-        <Button
-          onClick={() => router.push("/")}
-          key="/"
-          aria-label={""}
-          bg={"transparent"}
-          fontSize={"md"}
-          fontWeight={"light"}
-        >
-          Blog
-        </Button>
-        <Button
-          onClick={() => router.push("/portfolio")}
-          key="/portfolio"
-          aria-label={""}
-          bg={"transparent"}
-          fontSize={"md"}
-          fontWeight={"light"}
-        >
-          Portfolio
-        </Button>
-        <Button
-          bg={"transparent"}
-          onClick={() => router.push("/contact")}
-          key="/contact"
-          aria-label={""}
-          fontSize={"md"}
-          fontWeight={"light"}
-        >
-          Contact
-        </Button>
-      </NavBar>
+      <NavBar
+        routes={[
+          {
+            path: "/",
+            title: "Blog",
+          },
+          {
+            path: "/portfolio",
+            title: "Portfolio",
+          },
+          {
+            path: "/contact",
+            title: "Contact",
+          },
+        ]}
+      ></NavBar>
       <div className="site-layout">
-        <SiteLayout>
-          {props.children}
-        </SiteLayout>
+        <SiteLayout>{props.children}</SiteLayout>
       </div>
     </div>
   );
@@ -62,6 +43,6 @@ const SiteLayout = styled.div`
   margin: auto;
 
   @media (max-width: 768px) {
-    width: calc(100% / ${Phi/1.5});
+    width: calc(100% / ${Phi / 1.5});
   }
 `;

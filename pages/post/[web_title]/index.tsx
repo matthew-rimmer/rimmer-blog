@@ -7,7 +7,7 @@ import {
 } from "../../../common/utils/helpers";
 import ReactMarkdown from "react-markdown";
 import Head from "next/head";
-import { Flex, Heading, Text, VStack } from "@chakra-ui/react";
+import { Code, Flex, Heading, Text, VStack } from "@chakra-ui/react";
 import style from "../../../styles/markdown.module.css";
 import {
   List,
@@ -72,6 +72,9 @@ const PostPage = ({ postData }: { postData: Post[] }) => {
             ol: OrderedList,
             li: ListItem,
             a: Link,
+            code: ({ node, ...props }) => (
+              <Code width={"100%"} overflowY={"scroll"} {...props} />
+            ),
           }}
         >
           {post.content}

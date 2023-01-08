@@ -12,7 +12,6 @@ interface pageWrapperProps {
 }
 
 export const PageWrapper = (props: pageWrapperProps) => {
-
   return (
     <div style={{ width: "100vw", overflowX: "hidden" }}>
       <NavBar
@@ -21,6 +20,7 @@ export const PageWrapper = (props: pageWrapperProps) => {
             path: "/",
             title: "Blog",
           },
+          /* 
           {
             path: "/portfolio",
             title: "Portfolio",
@@ -28,7 +28,7 @@ export const PageWrapper = (props: pageWrapperProps) => {
           {
             path: "/contact",
             title: "Contact",
-          },
+          },*/
         ]}
       ></NavBar>
       <div className="site-layout">

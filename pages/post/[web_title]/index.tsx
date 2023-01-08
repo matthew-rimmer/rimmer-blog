@@ -68,9 +68,17 @@ const PostPage = ({ postData }: { postData: Post[] }) => {
               <Heading size={"sm"} as="h6" {...props} />
             ),
             p: Text,
-            ul: UnorderedList,
+            ul: ({ node, ...props }) => {
+              // For some reason, props had an ordered prop here which causes an error
+              const newProps = { ...props, ordered: null };
+              return <UnorderedList {...newProps} />;
+            },
             ol: OrderedList,
-            li: ListItem,
+            li: ({ node, ...props }) => {
+              // For some reason, props had an ordered prop here which causes an error
+              const newProps = { ...props, ordered: null };
+              return <ListItem key={props.key} {...newProps} />;
+            },
             a: Link,
             code: ({ node, ...props }) => (
               <Code width={"100%"} overflowX={"auto"} {...props} />

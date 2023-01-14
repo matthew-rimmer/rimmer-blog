@@ -39,7 +39,6 @@ const PostPage = ({ postData }: { postData: Post }) => {
     );
   }
 
-  console.log(postData);
   const post = postData;
   return (
     <VStack>

@@ -7,7 +7,15 @@ import {
 } from "../../../common/utils/helpers";
 import ReactMarkdown from "react-markdown";
 import Head from "next/head";
-import { Code, Flex, Heading, Text, VStack } from "@chakra-ui/react";
+import ErrorPage from "next/error";
+import {
+  Code,
+  Flex,
+  Heading,
+  Text,
+  useColorMode,
+  VStack,
+} from "@chakra-ui/react";
 import style from "../../../styles/markdown.module.css";
 import {
   List,
@@ -20,11 +28,19 @@ import { Link } from "@chakra-ui/react";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 
-const PostPage = ({ postData }: { postData: Post[] }) => {
+const PostPage = ({ postData }: { postData: Post }) => {
+  const { colorMode } = useColorMode();
   if (!postData) {
-    return <p>No post :c</p>;
+    return (
+      <ErrorPage
+        statusCode={404}
+        withDarkMode={colorMode === "dark" ? true : false}
+      />
+    );
   }
-  const post = postData[0];
+
+  console.log(postData);
+  const post = postData;
   return (
     <VStack>
       <Head>
@@ -41,18 +57,14 @@ const PostPage = ({ postData }: { postData: Post[] }) => {
           size="2xl"
           style={{ marginBottom: 0, paddingBottom: 0 }}
         >
-          {post?.title || <Skeleton width={"100px"} />}
+          {post && post?.title}
         </Heading>
         <Heading
           as="h3"
           size="md"
           style={{ marginTop: "10px", paddingTop: 0, paddingBottom: "2  0px" }}
         >
-          {post ? (
-            getDisplayDate(post.created_at)
-          ) : (
-            <Skeleton width={"150px"} />
-          )}
+          {post && getDisplayDate(post?.created_at)}
         </Heading>
       </VStack>
       <Flex flexDirection={"column"} gap={"10px"} width={"100%"}>
@@ -85,7 +97,7 @@ const PostPage = ({ postData }: { postData: Post[] }) => {
             ),
           }}
         >
-          {post.content}
+          {post?.content}
         </ReactMarkdown>
       </Flex>
     </VStack>
@@ -97,11 +109,17 @@ export default PostPage;
 // This gets called on every request
 export async function getServerSideProps(context: any) {
   const { web_title } = context.query;
+
+  if (!web_title) {
+    return {
+      notFound: true,
+    };
+  }
   // Fetch data from external API
   const dataObject = await getPostByWebTitle(web_title);
 
-  const postData = dataObject.data;
+  const postData = dataObject.data[0];
 
   // Pass data to the page via props
-  return { props: { postData } };
+  return { props: { postData: postData || null } };
 }

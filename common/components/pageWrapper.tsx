@@ -31,7 +31,10 @@ export const PageWrapper = (props: pageWrapperProps) => {
           },*/
         ]}
       ></NavBar>
-      <div className="site-layout">
+      <div
+        className="site-layout"
+        style={{ minHeight: `calc(100vh - (100vh / ${Phi}/8))` }}
+      >
         <SiteLayout>{props.children}</SiteLayout>
       </div>
     </div>
@@ -41,6 +44,7 @@ export const PageWrapper = (props: pageWrapperProps) => {
 const SiteLayout = styled.div`
   width: calc(100% / ${Phi});
   margin: auto;
+  min-height: 100%;
 
   @media (max-width: 768px) {
     width: calc(100% / ${Phi / 1.5});

@@ -1,4 +1,4 @@
-import { extendTheme } from "@chakra-ui/react";
+import { extendTheme, ThemeConfig } from "@chakra-ui/react";
 
 import { menuAnatomy } from "@chakra-ui/anatomy";
 import { createMultiStyleConfigHelpers, defineStyle } from "@chakra-ui/react";
@@ -30,7 +30,13 @@ const baseStyle = definePartsStyle({
 // export the base styles in the component theme
 const menuTheme = defineMultiStyleConfig({ baseStyle });
 
+const config: ThemeConfig = {
+  initialColorMode: "system",
+  useSystemColorMode: true,
+};
+
 const theme = extendTheme({
+  config,
   fonts: {
     heading: `'Roboto', sans-serif`,
     body: `'Roboto', sans-serif`,

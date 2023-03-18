@@ -48,7 +48,7 @@ export const NavBar = ({ routes }: { routes: any[] }) => {
           </Heading>
         </Center>
         {desktopView ? (
-          <HStack spacing={"8"}>
+          <HStack spacing={"7"}>
             {routes.map((route) => (
               <Button
                 bg={"transparent"}

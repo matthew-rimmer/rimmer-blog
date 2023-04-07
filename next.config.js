@@ -4,4 +4,14 @@ module.exports = {
     // Enables the styled-components SWC transform
     styledComponents: true,
   },
+  experimental: {
+    swcPlugins: [
+      [
+        "next-superjson-plugin",
+        {
+          excluded: [],
+        },
+      ],
+    ],
+  },
 };

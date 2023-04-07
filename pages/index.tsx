@@ -1,7 +1,6 @@
 // Importing the date picker component
 import { useEffect, useMemo, useState } from "react";
 import React from "react";
-import { getPosts, Post } from "../common/utils/supabaseClient";
 import Link from "next/link";
 import { getDisplayDate } from "../common/utils/helpers";
 import { PostPreview } from "../common/components/postPreview";
@@ -11,6 +10,8 @@ import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import format from "date-fns/format";
 import parseISO from "date-fns/parseISO";
+import prisma from "../lib/prisma";
+import { Post } from "@prisma/client";
 
 export default function Home({ postsData }: { postsData: Array<Post> }) {
   const posts = postsData;
@@ -46,9 +47,11 @@ export default function Home({ postsData }: { postsData: Array<Post> }) {
                   paddingBottom={"1rem"}
                 >
                   <Heading size="lg">{item.title}</Heading>
-                  <Heading size="sm">{getDisplayDate(item.created_at)}</Heading>
-                  <PostPreview content={item.content} />
-                  <Link href={`/post/${item.web_title}`}>Read more</Link>
+                  <Heading size="sm">
+                    {getDisplayDate(item.createdAt.toDateString())}
+                  </Heading>
+                  <PostPreview content={item.content!} />
+                  <Link href={`/post/${item.webTitle}`}>Read more</Link>
                 </Flex>
                 <Divider />
               </div>
@@ -65,26 +68,31 @@ export default function Home({ postsData }: { postsData: Array<Post> }) {
 // This gets called on every request
 export async function getServerSideProps(context: any) {
   // Fetch data from external API
-  const dataObject = await getPosts();
+  // const dataObject = await getPosts();
 
-  const rawPostsData = dataObject.data;
+  const posts = await prisma.post.findMany();
 
-  const postsData = rawPostsData.map((post: Post) => {
-    const splitString = post.content.split("\n");
-    const parsedString: String[] = [];
-    for (let index = 0; index < splitString.length; index++) {
-      if (
-        splitString[index].startsWith("#") ||
-        splitString[index + 1].startsWith("--")
-      ) {
-        break;
-      } else {
-        parsedString.push(splitString[index]);
+  if (posts) {
+    const postsData = posts.map((post: Post) => {
+      const splitString = post.content!.split("\n");
+      const parsedString: String[] = [];
+      for (let index = 0; index < splitString.length; index++) {
+        if (
+          splitString.length === 1 ||
+          splitString[index].startsWith("#") ||
+          splitString[index + 1].startsWith("--")
+        ) {
+          break;
+        } else {
+          parsedString.push(splitString[index]);
+        }
       }
-    }
-    return { ...post, content: parsedString.join("\n") };
-  });
+      return { ...post, content: parsedString.join("\n") };
+    });
 
-  // Pass data to the page via props
-  return { props: { postsData } };
+    // Pass data to the page via props
+    return { props: { postsData: postsData } };
+  }
+  console.error("No response :((");
+  return { props: {} };
 }

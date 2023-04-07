@@ -1,5 +1,4 @@
 import { useRouter } from "next/router";
-import { getPostByWebTitle, Post } from "../../../common/utils/supabaseClient";
 import { useEffect, useState } from "react";
 import {
   getDisplayDate,
@@ -27,6 +26,7 @@ import {
 import { Link } from "@chakra-ui/react";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
+import { Post } from "@prisma/client";
 
 const PostPage = ({ postData }: { postData: Post }) => {
   const { colorMode } = useColorMode();
@@ -63,7 +63,7 @@ const PostPage = ({ postData }: { postData: Post }) => {
           size="md"
           style={{ marginTop: "10px", paddingTop: 0, paddingBottom: "2  0px" }}
         >
-          {post && getDisplayDate(post?.created_at)}
+          {post && getDisplayDate(post?.createdAt.toDateString())}
         </Heading>
       </VStack>
       <Flex flexDirection={"column"} gap={"10px"} width={"100%"}>
@@ -96,7 +96,7 @@ const PostPage = ({ postData }: { postData: Post }) => {
             ),
           }}
         >
-          {post?.content}
+          {post?.content!}
         </ReactMarkdown>
       </Flex>
     </VStack>
@@ -115,10 +115,9 @@ export async function getServerSideProps(context: any) {
     };
   }
   // Fetch data from external API
-  const dataObject = await getPostByWebTitle(web_title);
-
-  const postData = dataObject.data[0];
-
+  const postData = await prisma?.post.findFirstOrThrow({
+    where: { webTitle: web_title },
+  });
   // Pass data to the page via props
   return { props: { postData: postData || null } };
 }

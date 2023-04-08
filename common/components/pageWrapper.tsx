@@ -20,6 +20,7 @@ export const PageWrapper = (props: pageWrapperProps) => {
             path: "/",
             title: "Blog",
           },
+          /*
           {
             path: "/portfolio",
             title: "Portfolio",
@@ -28,6 +29,7 @@ export const PageWrapper = (props: pageWrapperProps) => {
             path: "/contact",
             title: "Contact",
           },
+          */
         ]}
       ></NavBar>
       <div

@@ -26,6 +26,7 @@ import {
 import { Link } from "@chakra-ui/react";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
+import prisma from "../../../lib/prisma";
 import { Post } from "@prisma/client";
 
 const PostPage = ({ postData }: { postData: Post }) => {
@@ -115,7 +116,7 @@ export async function getServerSideProps(context: any) {
     };
   }
   // Fetch data from external API
-  const postData = await prisma?.post.findFirstOrThrow({
+  const postData = await prisma.post.findFirstOrThrow({
     where: { webTitle: web_title },
   });
   // Pass data to the page via props

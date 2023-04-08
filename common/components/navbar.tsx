@@ -26,7 +26,7 @@ export const NavBar = ({ routes }: { routes: any[] }) => {
 
   return (
     <Box
-      height={`calc(100vh / ${Phi}/8)`}
+      height={`56px`}
       bg={"#3d658d"}
       fontWeight={"light"}
       textColor={"#f6f7f5"}

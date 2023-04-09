@@ -24,8 +24,6 @@ import {
   UnorderedList,
 } from "@chakra-ui/react";
 import { Link } from "@chakra-ui/react";
-import Skeleton from "react-loading-skeleton";
-import "react-loading-skeleton/dist/skeleton.css";
 import prisma from "../../../lib/prisma";
 import { Post } from "@prisma/client";
 

@@ -25,7 +25,7 @@ export default function Home({ postsData }: { postsData: Array<Post> }) {
         <meta property="og:title" content="Blog" key="title" />
       </Head>
       <VStack paddingTop={"2rem"} align={"center"} width={"100%"}>
-        <Heading>Blog</Heading>
+        <Heading as="h1">Blog</Heading>
         <Heading size="lg" width={"100%"} textAlign={"left"}>
           Latest Posts
         </Heading>

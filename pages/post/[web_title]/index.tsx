@@ -51,7 +51,7 @@ const PostPage = ({ postData }: { postData: Post }) => {
       </Head>
       <VStack paddingTop={"2rem"} align={"center"}>
         <Heading
-          as="h2"
+          as="h1"
           size="2xl"
           style={{ marginBottom: 0, paddingBottom: 0 }}
         >

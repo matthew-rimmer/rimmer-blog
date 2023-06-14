@@ -1,34 +1,12 @@
 import { extendTheme, ThemeConfig } from "@chakra-ui/react";
-
 import { menuAnatomy } from "@chakra-ui/anatomy";
 import { createMultiStyleConfigHelpers, defineStyle } from "@chakra-ui/react";
+import { Work_Sans } from "next/font/google";
+
+const workSans = Work_Sans({ subsets: ["latin"] });
 
 const { definePartsStyle, defineMultiStyleConfig } =
   createMultiStyleConfigHelpers(menuAnatomy.keys);
-
-// define the base component styles
-const baseStyle = definePartsStyle({
-  list: {
-    // this will style the MenuList component
-    py: "4",
-    borderRadius: "xl",
-    border: "2px",
-    borderColor: "white",
-    bg: "#3d658d",
-  },
-  item: {
-    // this will style the MenuItem and MenuItemOption components
-    color: "gray.200",
-    _hover: {
-      bg: "#314B66",
-    },
-    _focus: {
-      bg: "#314B66",
-    },
-  },
-});
-// export the base styles in the component theme
-const menuTheme = defineMultiStyleConfig({ baseStyle });
 
 const config: ThemeConfig = {
   initialColorMode: "system",
@@ -38,14 +16,11 @@ const config: ThemeConfig = {
 const theme = extendTheme({
   config,
   fonts: {
-    heading: `'Roboto', sans-serif`,
-    body: `'Roboto', sans-serif`,
+    body: workSans.style.fontFamily,
+    heading: workSans.style.fontFamily,
   },
   background: "#F3F3EC",
-  color: "#314B66",
-  components: {
-    Menu: menuTheme,
-  },
+  color: "#8b2386",
   styles: {
     global: {
       ul: {
@@ -55,7 +30,7 @@ const theme = extendTheme({
         marginInlineStart: "1rem  ",
       },
       a: {
-        color: "blue",
+        color: "#8b2386",
       },
     },
   },

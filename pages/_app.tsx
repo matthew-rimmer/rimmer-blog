@@ -7,14 +7,15 @@ import { ChakraProvider } from "@chakra-ui/react";
 import theme from "../common/components/theme";
 import NextNProgress from "nextjs-progressbar";
 
+
 function MyApp({ Component, pageProps }: AppProps) {
   // TODO: Fix weird static thing
-  /*
+
   if (typeof window !== "undefined" && process.env.NODE_ENV !== "production") {
     const ReactDOM = require("react-dom");
     const axe = require("@axe-core/react");
     axe(React, ReactDOM, 1000);
-  }*/
+  }
 
   return (
     <>

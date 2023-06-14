@@ -20,7 +20,7 @@ export const PageWrapper = (props: pageWrapperProps) => {
             path: "/",
             title: "Blog",
           },
-          /*
+          /* TODO: Finish routes
           {
             path: "/portfolio",
             title: "Portfolio",
@@ -31,9 +31,10 @@ export const PageWrapper = (props: pageWrapperProps) => {
           },
           */
         ]}
-      ></NavBar>
+      />
       <div
         className="site-layout"
+        role="main"
         style={{ minHeight: `calc(100vh - (100vh / ${Phi}/8))` }}
       >
         <SiteLayout>{props.children}</SiteLayout>
@@ -43,11 +44,11 @@ export const PageWrapper = (props: pageWrapperProps) => {
 };
 
 const SiteLayout = styled.div`
-  width: calc(100% / ${Phi});
+  width: 750px;
   margin: auto;
   min-height: 100%;
 
   @media (max-width: 768px) {
-    width: calc(100% / ${Phi / 1.5});
+    width: 95%;
   }
 `;

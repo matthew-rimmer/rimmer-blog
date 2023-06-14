@@ -11,6 +11,7 @@ import {
   MenuButton,
   MenuItem,
   MenuList,
+  Text,
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { Phi } from "../constants";
@@ -26,37 +27,36 @@ export const NavBar = ({ routes }: { routes: any[] }) => {
 
   return (
     <Box
-      height={`56px`}
-      bg={"#3d658d"}
-      fontWeight={"light"}
-      textColor={"#f6f7f5"}
+      role="navigation"
+      width={"100%"}
+      justifyContent={"center"}
+      height={`64px`}
+      display={"flex"}
     >
-      <div
-        style={{
-          alignItems: "center",
-          height: "100%",
-          padding: desktopView
-            ? `0 calc((100% - (100% / ${Phi}))/2)`
-            : `0 calc((100% - (100% / ${Phi / 1.5}))/2)`,
-          display: "flex",
-          justifyContent: "space-between",
-        }}
+      <Box
+        display={"flex"}
+        width={desktopView ? "750px" : "95%"}
+        alignItems="center"
+        justifyContent="space-between"
       >
         <Center>
-          <Heading size={"lg"} fontWeight={"light"} textAlign={"center"}>
+          <Text
+            onClick={() => router.push("/")}
+            cursor={"pointer"}
+            fontSize={"24px"}
+            fontWeight={"semibold"}
+            textAlign={"center"}
+          >
             Rimmer
-          </Heading>
+          </Text>
         </Center>
         {desktopView ? (
           <HStack spacing={"7"}>
             {routes.map((route) => (
               <Button
-                bg={"transparent"}
                 onClick={() => router.push(route.path)}
                 key={route.path}
-                aria-label={""}
                 fontSize={"md"}
-                fontWeight={"light"}
               >
                 {route.title}
               </Button>
@@ -64,12 +64,7 @@ export const NavBar = ({ routes }: { routes: any[] }) => {
           </HStack>
         ) : (
           <Menu>
-            <MenuButton
-              as={IconButton}
-              background={"none"}
-              icon={<HamburgerIcon boxSize={6} />}
-              aria-label={""}
-            />
+            <MenuButton as={IconButton} icon={<HamburgerIcon boxSize={6} />} />
             <MenuList>
               {routes.map((route) => (
                 <MenuItem
@@ -82,7 +77,7 @@ export const NavBar = ({ routes }: { routes: any[] }) => {
             </MenuList>
           </Menu>
         )}
-      </div>
+      </Box>
     </Box>
   );
 };

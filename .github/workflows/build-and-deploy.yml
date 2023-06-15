@@ -29,6 +29,12 @@ jobs:
       - name: Build the Next.js app
         run: npm run build
         
+        
+      - name: Update known_hosts
+        run: |
+          mkdir -p ~/.ssh
+          ssh-keyscan -t rsa ${{ secrets.HOST }} >> ~/.ssh/known_hosts
+        
       - name: Rsync deployment
         run: rsync -avz --delete -e "ssh -p ${{ secrets.PORT }}" .next/ ${{ secrets.USERNAME }}@${{ secrets.HOST }}:${{ env.SERVER_DESTINATION }}
 

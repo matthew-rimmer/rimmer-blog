@@ -39,7 +39,7 @@ jobs:
         uses: burnett01/rsync-deployments@6.0.0
         with:
           switches: -avz --delete -e "ssh -p ${{ secrets.PORT }}" 
-          path: /
+          path: ./
           remote_path: ${{ env.SERVER_DESTINATION }}
           remote_host:  ${{ secrets.HOST }}
           remote_port: ${{ secrets.PORT }}

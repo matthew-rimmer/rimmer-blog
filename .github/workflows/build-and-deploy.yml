@@ -34,21 +34,18 @@ jobs:
         run: |
           mkdir -p ~/.ssh
           ssh-keyscan -t rsa ${{ secrets.HOST }} >> ~/.ssh/known_hosts
-        
+          
       - name: rsync deployments
-        uses: contention/rsync-deployments@v2.0.0
+        uses: burnett01/rsync-deployments@6.0.0
         with:
-          flags: -avz --delete -e "ssh -p ${{ secrets.PORT }}" 
-          # The server user
-          user: ${{ secrets.USERNAME }}
-          # The deployment target
-          host: ${{ secrets.HOST }}
-          # The local path to sync
-          localpath: .next/
-          # The remote path to sync
-          remotepath: ${{ env.SERVER_DESTINATION }}
-          # The private key
-          deploy_key: ${{ secrets.DEPLOY_KEY }}
+          switches: -avz --delete -e "ssh -p ${{ secrets.PORT }}" 
+          path: /
+          remote_path: ${{ env.SERVER_DESTINATION }}
+          remote_host:  ${{ secrets.HOST }}
+          remote_port: ${{ secrets.PORT }}
+          remote_user:  ${{ secrets.USERNAME }}
+          remote_key: ${{ secrets.DEPLOY_KEY }}
+          remote_key_pass: ${{ secrets.DEPLOY_KEY_PASS }}
 
       - name: SSH into server and run migrations
         uses: appleboy/ssh-action@master

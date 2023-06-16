@@ -38,7 +38,7 @@ jobs:
       - name: rsync deployments
         uses: burnett01/rsync-deployments@6.0.0
         with:
-          switches: -avzr --delete
+          switches: -avzr --delete --exclude='.env'
           remote_path: ${{ env.SERVER_DESTINATION }}
           remote_host:  ${{ secrets.HOST }}
           remote_port: ${{ secrets.PORT }}

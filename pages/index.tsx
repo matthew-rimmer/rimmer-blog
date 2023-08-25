@@ -47,7 +47,7 @@ export default function Home({ postsData }: { postsData: Array<Post> }) {
                     {getDisplayDate(item.createdAt.toDateString())}
                   </Heading>
                   <PostPreview content={item.content!} />
-                  <Link href={`/post/${item.webTitle}`}>Read more</Link>
+                  <Link href={`/blog/${item.webTitle}`}>Read more</Link>
                 </Flex>
                 <Divider />
               </div>

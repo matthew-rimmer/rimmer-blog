@@ -6,10 +6,19 @@ import {
   SimpleGrid,
   Spacer,
   Flex,
+  Text,
+  Card,
+  LinkOverlay,
 } from "@chakra-ui/react";
+import { PortfolioItem } from "@prisma/client";
 import Head from "next/head";
+import Image from "next/image";
 
-export default function Portfolio() {
+export default function Portfolio({
+  itemData,
+}: {
+  itemData: Array<PortfolioItem>;
+}) {
   return (
     <>
       <Head>
@@ -17,23 +26,43 @@ export default function Portfolio() {
         <meta property="og:title" content="Portfolio" key="title" />
       </Head>
       <VStack paddingTop={"2rem"} align={"center"} width={"100%"}>
-        <Heading>Portfolio</Heading>
+        <Heading as="h1">Portfolio</Heading>
         <SimpleGrid
-          columns={[1, 2, 3]}
+          columns={[1, 2]}
           width="100%"
           spacing="40px"
           justifyItems="center"
         >
-          {Array(10).map((_, index) => (
-            <Box key={index} w="150px" h="150px" bg="gray.200">
-              <Flex height="100%" flexDir="column">
-                <Spacer />
-                <Heading>Item ${index}</Heading>
-              </Flex>
-            </Box>
+          {itemData.map((item, index) => (
+            <Card key={index} padding={5} gap={2}>
+              <LinkOverlay href={`/portfolio/${item.webTitle}`}>
+                <Image
+                  src={item.imageUrl}
+                  width={300}
+                  height={250}
+                  alt="Picture from picsum"
+                />
+                <Heading color={"white"} mixBlendMode={"exclusion"}>
+                  {item.title}
+                </Heading>
+              </LinkOverlay>
+            </Card>
           ))}
         </SimpleGrid>
       </VStack>
     </>
   );
+}
+
+// This gets called on every request
+export async function getServerSideProps(context: any) {
+  // Fetch data from external API
+
+  const items = await prisma?.portfolioItem.findMany();
+
+  if (items) {
+    return { props: { itemData: items } };
+  }
+  console.error("No response :((");
+  return { props: {} };
 }

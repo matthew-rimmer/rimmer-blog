@@ -23,3 +23,15 @@ model Post {
 
   updatedAt DateTime @updatedAt @map(name: "updated_at")
 }
+
+model PortfolioItem {
+  id String @id @default(cuid())
+
+  title String
+
+  webTitle String @map(name: "web_title")
+
+  content String
+
+  imageUrl String @map(name: "image_url")
+}

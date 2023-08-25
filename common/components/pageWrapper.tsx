@@ -20,11 +20,12 @@ export const PageWrapper = (props: pageWrapperProps) => {
             path: "/",
             title: "Blog",
           },
-          /* TODO: Finish routes
+
           {
             path: "/portfolio",
             title: "Portfolio",
           },
+          /* TODO: Finish routes
           {
             path: "/contact",
             title: "Contact",

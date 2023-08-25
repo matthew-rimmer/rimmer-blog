@@ -14,15 +14,20 @@ module.exports = {
       ],
     ],
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'picsum.photos',
+        port: '',
+        pathname: '/id/**',
+      },
+    ],
+  },
   async redirects() {
     return [
       {
         source: "/contact", // this path will be redirected to 404
-        destination: "/404",
-        permanent: false,
-      },
-      {
-        source: "/portfolio", // this path will be redirected to 404
         destination: "/404",
         permanent: false,
       },

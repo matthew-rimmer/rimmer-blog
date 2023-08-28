@@ -13,6 +13,7 @@ import {
 import { PortfolioItem } from "@prisma/client";
 import Head from "next/head";
 import Image from "next/image";
+import prisma from "../lib/prisma";
 
 export default function Portfolio({
   itemData,

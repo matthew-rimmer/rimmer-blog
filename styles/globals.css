@@ -15,3 +15,13 @@ img {
 ul {
   margin-left: 1rem;
 }
+
+.site-layout {
+  width: 750px;
+  margin: auto;
+  min-height: 100%;
+
+  @media (max-width: 768px) {
+    width: 95%;
+  }
+}

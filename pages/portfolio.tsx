@@ -14,6 +14,7 @@ import { PortfolioItem } from "@prisma/client";
 import Head from "next/head";
 import Image from "next/image";
 import prisma from "../lib/prisma";
+import NextLink from 'next/link'
 
 export default function Portfolio({
   itemData,
@@ -35,15 +36,15 @@ export default function Portfolio({
           justifyItems="center"
         >
           {itemData.map((item, index) => (
-            <Card key={index} padding={5} gap={2}>
-              <LinkOverlay href={`/portfolio/${item.webTitle}`}>
+            <Card key={index} gap={2}>
+              <LinkOverlay as={NextLink} href={`/portfolio/${item.webTitle}`}>
                 <Image
                   src={item.imageUrl}
                   width={300}
                   height={250}
                   alt="Picture from picsum"
                 />
-                <Heading color={"white"} mixBlendMode={"exclusion"}>
+                <Heading padding={3}>
                   {item.title}
                 </Heading>
               </LinkOverlay>

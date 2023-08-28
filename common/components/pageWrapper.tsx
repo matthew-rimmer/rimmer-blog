@@ -38,18 +38,8 @@ export const PageWrapper = (props: pageWrapperProps) => {
         role="main"
         style={{ minHeight: `calc(100vh - (100vh / ${Phi}/8))` }}
       >
-        <SiteLayout>{props.children}</SiteLayout>
+        <div className="site-layout">{props.children}</div>
       </div>
     </div>
   );
 };
-
-const SiteLayout = styled.div`
-  width: 750px;
-  margin: auto;
-  min-height: 100%;
-
-  @media (max-width: 768px) {
-    width: 95%;
-  }
-`;

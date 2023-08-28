@@ -1,31 +1,13 @@
-import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
 import {
   getDisplayDate,
   markupToPlainText,
 } from "../../../common/utils/helpers";
-import ReactMarkdown from "react-markdown";
 import Head from "next/head";
 import ErrorPage from "next/error";
-import {
-  Code,
-  Flex,
-  Heading,
-  Text,
-  useColorMode,
-  VStack,
-} from "@chakra-ui/react";
-import style from "../../../styles/markdown.module.css";
-import {
-  List,
-  ListItem,
-  ListIcon,
-  OrderedList,
-  UnorderedList,
-} from "@chakra-ui/react";
-import { Link } from "@chakra-ui/react";
+import { Flex, Heading, useColorMode, VStack } from "@chakra-ui/react";
 import prisma from "../../../lib/prisma";
 import { Post } from "@prisma/client";
+import { Markdown } from "../../../common/components/markdown";
 
 const PostPage = ({ postData }: { postData: Post }) => {
   const { colorMode } = useColorMode();
@@ -65,38 +47,13 @@ const PostPage = ({ postData }: { postData: Post }) => {
           {post && getDisplayDate(post?.createdAt.toDateString())}
         </Heading>
       </VStack>
-      <Flex flexDirection={"column"} gap={"10px"} width={"100%"}>
-        <ReactMarkdown
-          components={{
-            h1: ({ node, ...props }) => (
-              <Heading size={"lg"} as="h4" {...props} />
-            ),
-            h2: ({ node, ...props }) => (
-              <Heading size={"md"} as="h5" {...props} />
-            ),
-            h3: ({ node, ...props }) => (
-              <Heading size={"sm"} as="h6" {...props} />
-            ),
-            p: Text,
-            ul: ({ node, ...props }) => {
-              // For some reason, props had an ordered prop here which causes an error
-              const newProps = { ...props, ordered: null };
-              return <UnorderedList {...newProps} />;
-            },
-            ol: OrderedList,
-            li: ({ node, ...props }) => {
-              // For some reason, props had an ordered prop here which causes an error
-              const newProps = { ...props, ordered: null };
-              return <ListItem key={props.key} {...newProps} />;
-            },
-            a: Link,
-            code: ({ node, ...props }) => (
-              <Code width={"100%"} overflowX={"auto"} {...props} />
-            ),
-          }}
-        >
-          {post?.content!}
-        </ReactMarkdown>
+      <Flex
+        flexDirection={"column"}
+        paddingBottom={"2rem"}
+        gap={"10px"}
+        width={"100%"}
+      >
+        <Markdown>{post?.content!}</Markdown>
       </Flex>
     </VStack>
   );

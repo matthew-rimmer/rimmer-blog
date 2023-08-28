@@ -1,8 +1,6 @@
 import {
   Box,
-  Stack,
   HStack,
-  Heading,
   Button,
   Center,
   useMediaQuery,
@@ -14,7 +12,6 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { useState } from "react";
-import { Phi } from "../constants";
 import { HamburgerIcon } from "@chakra-ui/icons";
 import { useRouter } from "next/router";
 

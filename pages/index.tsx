@@ -2,7 +2,7 @@
 import { useEffect, useMemo, useState } from "react";
 import React from "react";
 import Link from "next/link";
-import { getDisplayDate } from "../common/utils/helpers";
+import { contentMarkupToPreviewMarkup, getDisplayDate, getFirstParagraph } from "../common/utils/helpers";
 import { PostPreview } from "../common/components/postPreview";
 import { Divider, Flex, Heading, VStack } from "@chakra-ui/react";
 import Head from "next/head";
@@ -70,20 +70,7 @@ export async function getServerSideProps(context: any) {
 
   if (posts) {
     const postsData = posts.map((post: Post) => {
-      const splitString = post.content!.split("\n");
-      const parsedString: String[] = [];
-      for (let index = 0; index < splitString.length; index++) {
-        if (
-          splitString.length === 1 ||
-          splitString[index].startsWith("#") ||
-          splitString[index + 1].startsWith("--")
-        ) {
-          break;
-        } else {
-          parsedString.push(splitString[index]);
-        }
-      }
-      return { ...post, content: parsedString.join("\n") };
+      return { ...post, content: post?.content && contentMarkupToPreviewMarkup(post.content) };
     });
 
     // Pass data to the page via props

@@ -37,7 +37,7 @@ export const getFirstParagraph = (content: string) => {
   const splitString = content.split("\n");
   const parsedString: String[] = [];
 
-  const markupCheck: RegExp = /^#|--|\*|\>|\-|\=/
+  const markupCheck: RegExp = /^#|--|\*|\>|\-|\=|^[0-9]/
 
   // Loop through each line of the content.
   for (let index = 0; index < splitString.length; index++) {

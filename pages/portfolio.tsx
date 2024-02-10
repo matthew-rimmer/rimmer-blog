@@ -21,6 +21,7 @@ import {
   contentMarkupToPreviewMarkup,
   getFirstParagraph,
 } from "../common/utils/helpers";
+import ClampLines from "react-clamp-lines";
 
 export default function Portfolio({
   itemData,
@@ -55,10 +56,19 @@ export default function Portfolio({
                   height={250}
                   alt="Picture from picsum"
                 />
-                <Heading size="lg" padding={3}>
+                <Heading size="lg" paddingLeft={3} paddingRight={3} paddingTop={3}>
                   {item.title}
                 </Heading>
-                <Text textOverflow={"ellipsis"} padding={3}>{item.content}</Text>
+                <Box  padding={3}>
+                  <ClampLines
+                    text={item.content}
+                    id="really-unique-id"
+                    lines={3}
+                    ellipsis="..."
+                    innerElement="p"
+                    buttons={false}
+                  />
+                </Box>
               </LinkOverlay>
             </Card>
           ))}
@@ -70,13 +80,10 @@ export default function Portfolio({
 
 // This gets called on every request
 export async function getServerSideProps(context: any) {
-  // Fetch data from external API
-
   const items = await prisma?.portfolioItem.findMany();
 
   if (items) {
     const itemData = items.map((portfolioItem: PortfolioItem) => {
-      console.log(getFirstParagraph(portfolioItem.content));
       return {
         ...portfolioItem,
         content:

@@ -1,29 +1,24 @@
-import { useState } from "react";
-import React from "react";
-import { useRouter } from "next/router";
-import { Heading } from "@chakra-ui/react";
-import { Button, IconButton } from "@chakra-ui/react";
-import { NavBar } from "./navbar";
-import { Phi } from "../constants";
-import styled from "styled-components";
+import React from 'react';
+import { Phi } from '../constants';
+import NavBar from './navbar';
 
-interface pageWrapperProps {
+interface PageWrapperProps {
   children: any;
 }
 
-export const PageWrapper = (props: pageWrapperProps) => {
+function PageWrapper({ children }: PageWrapperProps) {
   return (
-    <div style={{ width: "100vw", overflowX: "hidden" }}>
+    <div style={{ width: '100vw', overflowX: 'hidden' }}>
       <NavBar
         routes={[
           {
-            path: "/",
-            title: "Blog",
+            path: '/',
+            title: 'Blog',
           },
 
           {
-            path: "/portfolio",
-            title: "Portfolio",
+            path: '/portfolio',
+            title: 'Portfolio',
           },
           /* TODO: Finish routes
           {
@@ -38,8 +33,10 @@ export const PageWrapper = (props: pageWrapperProps) => {
         role="main"
         style={{ minHeight: `calc(100vh - (100vh / ${Phi}/8))` }}
       >
-        <div className="site-layout">{props.children}</div>
+        <div className="site-layout">{children}</div>
       </div>
     </div>
   );
-};
+}
+
+export default PageWrapper;

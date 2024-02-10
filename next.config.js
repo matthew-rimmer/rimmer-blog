@@ -33,4 +33,7 @@ module.exports = {
       },
     ];
   },
+  eslint: {
+    dirs: ["common"]
+  }
 };

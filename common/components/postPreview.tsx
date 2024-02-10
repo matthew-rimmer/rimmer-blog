@@ -1,3 +1,7 @@
+/* eslint-disable react/jsx-props-no-spreading */
+/* eslint-disable react/no-unstable-nested-components */
+/* eslint-disable react/function-component-definition */
+
 import {
   Code,
   Heading,
@@ -6,24 +10,21 @@ import {
   OrderedList,
   UnorderedList,
   Text,
-} from "@chakra-ui/react";
-import sl from "date-fns/esm/locale/sl/index.js";
-import React from "react";
-import { useEffect, useState } from "react";
-import ReactMarkdown from "react-markdown";
+} from '@chakra-ui/react';
+import React from 'react';
+import ReactMarkdown from 'react-markdown';
 
-type postPreviewProps = {
+type PostPreviewProps = {
   content: string;
-  parsedContent?: string;
 };
 
-export const PostPreview = ({ content }: postPreviewProps) => {
+function PostPreview({ content }: PostPreviewProps) {
   return (
     <ReactMarkdown
       components={{
-        h1: ({ node, ...props }) => <Heading size={"lg"} as="h4" {...props} />,
-        h2: ({ node, ...props }) => <Heading size={"md"} as="h5" {...props} />,
-        h3: ({ node, ...props }) => <Heading size={"sm"} as="h6" {...props} />,
+        h1: ({ node, ...props }) => <Heading size="lg" as="h4" {...props} />,
+        h2: ({ node, ...props }) => <Heading size="md" as="h5" {...props} />,
+        h3: ({ node, ...props }) => <Heading size="sm" as="h6" {...props} />,
         p: Text,
         ul: ({ node, ...props }) => {
           // For some reason, props had an ordered prop here which causes an error
@@ -38,7 +39,7 @@ export const PostPreview = ({ content }: postPreviewProps) => {
         },
         a: Link,
         code: ({ node, ...props }) => (
-          <Code width={"100%"} overflowX={"auto"} {...props} />
+          <Code width="100%" overflowX="auto" {...props} />
         ),
         img: React.Fragment,
       }}
@@ -46,4 +47,6 @@ export const PostPreview = ({ content }: postPreviewProps) => {
       {content!}
     </ReactMarkdown>
   );
-};
+}
+
+export default PostPreview;

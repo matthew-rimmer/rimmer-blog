@@ -10,50 +10,47 @@ import {
   MenuItem,
   MenuList,
   Text,
-} from "@chakra-ui/react";
-import { useState } from "react";
-import { HamburgerIcon } from "@chakra-ui/icons";
-import { useRouter } from "next/router";
+} from '@chakra-ui/react';
+import { HamburgerIcon } from '@chakra-ui/icons';
+import { useRouter } from 'next/router';
 
-export const NavBar = ({ routes }: { routes: any[] }) => {
-  const [isOpen, setIsOpen] = useState<Boolean>(false);
-
-  const [desktopView] = useMediaQuery("(min-width: 768px)");
+function NavBar({ routes }: { routes: any[] }) {
+  const [desktopView] = useMediaQuery('(min-width: 768px)');
 
   const router = useRouter();
 
   return (
     <Box
       role="navigation"
-      width={"100%"}
-      justifyContent={"center"}
-      height={`64px`}
-      display={"flex"}
+      width="100%"
+      justifyContent="center"
+      height="64px"
+      display="flex"
     >
       <Box
-        display={"flex"}
-        width={desktopView ? "750px" : "95%"}
+        display="flex"
+        width={desktopView ? '750px' : '95%'}
         alignItems="center"
         justifyContent="space-between"
       >
         <Center>
           <Text
-            onClick={() => router.push("/")}
-            cursor={"pointer"}
-            fontSize={"24px"}
-            fontWeight={"semibold"}
-            textAlign={"center"}
+            onClick={() => router.push('/')}
+            cursor="pointer"
+            fontSize="24px"
+            fontWeight="semibold"
+            textAlign="center"
           >
             Rimmer
           </Text>
         </Center>
         {desktopView ? (
-          <HStack spacing={"7"}>
+          <HStack spacing="7">
             {routes.map((route) => (
               <Button
                 onClick={() => router.push(route.path)}
                 key={route.path}
-                fontSize={"md"}
+                fontSize="md"
               >
                 {route.title}
               </Button>
@@ -77,4 +74,6 @@ export const NavBar = ({ routes }: { routes: any[] }) => {
       </Box>
     </Box>
   );
-};
+}
+
+export default NavBar;

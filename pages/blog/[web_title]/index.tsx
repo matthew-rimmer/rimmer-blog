@@ -1,37 +1,34 @@
+import Head from 'next/head';
+import ErrorPage from 'next/error';
+import {
+  Flex, Heading, useColorMode, VStack,
+} from '@chakra-ui/react';
+import { Post } from '@prisma/client';
+import prisma from '../../../lib/prisma';
 import {
   getDisplayDate,
   markupToPlainText,
-} from "../../../common/utils/helpers";
-import Head from "next/head";
-import ErrorPage from "next/error";
-import { Flex, Heading, useColorMode, VStack } from "@chakra-ui/react";
-import prisma from "../../../lib/prisma";
-import { Post } from "@prisma/client";
-import { Markdown } from "../../../common/components/markdown";
+} from '../../../common/utils/helpers';
+import Markdown from '../../../common/components/markdown';
 
-const PostPage = ({ postData }: { postData: Post }) => {
+function PostPage({ postData }: { postData: Post }) {
   const { colorMode } = useColorMode();
   if (!postData) {
-    return (
-      <ErrorPage
-        statusCode={404}
-        withDarkMode={colorMode === "dark" ? true : false}
-      />
-    );
+    return <ErrorPage statusCode={404} withDarkMode={colorMode === 'dark'} />;
   }
 
   const post = postData;
   return (
     <VStack>
       <Head>
-        <title>{post?.title ? post?.title : "Loading..."}</title>
+        <title>{post?.title ? post?.title : 'Loading...'}</title>
         <meta property="og:Heading" content={post?.title} key="Heading" />
         <meta
           name="description"
-          content={markupToPlainText(post?.content || "")}
+          content={markupToPlainText(post?.content || '')}
         />
       </Head>
-      <VStack paddingTop={"2rem"} align={"center"}>
+      <VStack paddingTop="2rem" align="center">
         <Heading
           as="h1"
           size="2xl"
@@ -42,27 +39,23 @@ const PostPage = ({ postData }: { postData: Post }) => {
         <Heading
           as="h3"
           size="md"
-          style={{ marginTop: "10px", paddingTop: 0, paddingBottom: "2  0px" }}
+          style={{ marginTop: '10px', paddingTop: 0, paddingBottom: '2  0px' }}
         >
           {post && getDisplayDate(post?.createdAt.toDateString())}
         </Heading>
       </VStack>
-      <Flex
-        flexDirection={"column"}
-        paddingBottom={"2rem"}
-        gap={"10px"}
-        width={"100%"}
-      >
+      <Flex flexDirection="column" paddingBottom="2rem" gap="10px" width="100%">
         <Markdown>{post?.content!}</Markdown>
       </Flex>
     </VStack>
   );
-};
+}
 
 export default PostPage;
 
 // This gets called on every request
 export async function getServerSideProps(context: any) {
+  // eslint-disable-next-line @typescript-eslint/naming-convention
   const { web_title } = context.query;
 
   if (!web_title) {

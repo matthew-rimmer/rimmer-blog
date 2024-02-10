@@ -1,5 +1,5 @@
-import Head from "next/head";
-import { Heading, VStack, Text } from "@chakra-ui/react";
+import Head from 'next/head';
+import { Heading, VStack, Text } from '@chakra-ui/react';
 
 export default function Contact() {
   return (

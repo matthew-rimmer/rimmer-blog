@@ -6,11 +6,13 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "lint:fix": "next lint --fix"
   },
   "dependencies": {
     "@chakra-ui/icons": "^2.0.12",
     "@chakra-ui/react": "^2.3.7",
+    "@chakra-ui/anatomy": "^2.2.2",
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
     "@prisma/client": "^4.12.0",
@@ -23,20 +25,30 @@
     "next-superjson-plugin": "^0.5.8",
     "nextjs-progressbar": "^0.0.16",
     "react": "18.2.0",
+    "react-clamp-lines": "^3.0.3",
     "react-dom": "18.2.0",
     "react-helmet": "^6.1.0",
     "react-markdown": "^8.0.3",
     "react-remark": "^2.1.0",
-    "styled-components": "^5.3.6"
+    "styled-components": "^5.3.6",
+    "@axe-core/react": "^4.7.3"
   },
   "devDependencies": {
-    "@axe-core/react": "^4.7.3",
     "@types/dompurify": "^2.3.4",
     "@types/node": "18.11.9",
     "@types/react": "18.0.25",
     "@types/react-helmet": "^6.1.5",
     "@types/styled-components": "^5.1.26",
+    "@typescript-eslint/eslint-plugin": "^5.62.0",
+    "@typescript-eslint/parser": "^5.62.0",
+    "eslint": "^8.56.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-airbnb-typescript": "^17.1.0",
     "eslint-config-next": "13.0.2",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-jsx-a11y": "^6.8.0",
+    "eslint-plugin-react": "^7.33.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
     "prisma": "^4.12.0",
     "typescript": "5.3.3"
   }
